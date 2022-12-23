@@ -5,7 +5,7 @@
 // )
 
 // var nombre = "Ivo Mihocevich"
-// var direccion = "Martin Coronado 3140"
+// var direccion = ""
 // var temperatura = 30
 
 // func main() {
