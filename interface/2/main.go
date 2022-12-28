@@ -1,37 +1,60 @@
 package main
 
-const (
-	grande  = "Grande"
-	mediano = "Mediano"
-	pequeño = "Pequeño"
-)
+import "fmt"
 
 type Item struct {
 	Nombre      string
 	Description string
 	Costo       float64
-	Tipo        string
+}
+
+type Pequeño struct {
+	Item
+}
+
+type Mediano struct {
+	Item
+}
+
+type Grande struct {
+	Item
+}
+
+func (p *Pequeño) Precio() float64 {
+	return p.Costo
+}
+
+func (p *Mediano) Precio() float64 {
+	return p.Costo + (p.Costo * 0.03)
+}
+func (p *Grande) Precio() float64 {
+	return p.Costo + 2500 + (p.Costo * 0.06)
 }
 
 type Producto interface {
-	Precio() (float64, error)
+	Precio() float64
 }
 
-func (i Item) Precio() (precio float64, err error) {
-	switch i.Tipo {
+func Factory(nombre string, tipo string, precio float64) (producto Producto) {
+	switch tipo {
 	case "Grande":
-		precio = i.Costo + 2500 + (i.Costo * 0.06)
+		producto = &Grande{Item{nombre, tipo, precio}}
 	case "Mediano":
-		precio = i.Costo + (i.Costo * 0.03)
+		producto = &Mediano{Item{nombre, tipo, precio}}
 	case "Pequeño":
-		precio = i.Costo
+		producto = &Pequeño{Item{nombre, tipo, precio}}
 	default:
-		err = erros.New("tipo inválido")
+		panic("invalid tipo")
 	}
-	return precio, err
-
+	return
 }
 
-func Factory(tipo string, precio float64) Producto {
-	return
+func main() {
+	g := Factory("Item grande", "Grande", 1000)
+	m := Factory("Item mediano", "Mediano", 900)
+	p := Factory("Item pequeño", "Pequeño", 1500)
+
+	fmt.Println(g.Precio())
+	fmt.Println(m.Precio())
+	fmt.Println(p.Precio())
 }
