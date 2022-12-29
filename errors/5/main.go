@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	resultado, err := salario(80, 900)
+	resultado, err := salario(79, 900)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	fmt.Println(resultado)
 
