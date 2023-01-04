@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	err := tickets.ReadFile()
+	err := tickets.ReadFile("./tickets.csv")
 	if err != nil {
 		panic(err)
 	}

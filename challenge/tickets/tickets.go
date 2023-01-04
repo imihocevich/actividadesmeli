@@ -18,8 +18,8 @@ type Ticket struct {
 
 var tickets []Ticket
 
-func ReadFile() (err error) {
-	archivo, err := os.Open("./tickets.csv")
+func ReadFile(path string) (err error) {
+	archivo, err := os.Open(path)
 	if err != nil {
 		return err
 	}
